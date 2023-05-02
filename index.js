@@ -20,7 +20,7 @@ app.get('/authorize', (req, res) => {
 
 // Endpoint for handling the callback from Zoho
 app.get('/oauth2callback', async (req, res) => {
-
+console.log("redirected");
   const { code } = req.query;
   console.log(code);
   try {
@@ -37,7 +37,8 @@ app.get('/oauth2callback', async (req, res) => {
         },
       }).then(res=>{
         if (res) {
-          resolve(res.data.Data.TripDetailsResult)
+          console.log(res);
+          resolve(res.data)
         } else {
           reject("There is an Error!")
         }
