@@ -12,10 +12,10 @@ app.get('/', (req, res) => {
   res.send(`app working`);
 });
 // Endpoint for starting the OAuth flow
-app.get('/authorize', (req, res) => {
+app.get('/authorize',async (req, res) => {
   const authUrl = `https://accounts.zoho.in/oauth/v2/auth?scope=${scope}&client_id=${clientId}&response_type=code&access_type=offline&redirect_uri=${redirectUri}`;
   console.log(authUrl);
-  res.redirect(authUrl);
+await res.redirect(authUrl);
 });
 
 // Endpoint for handling the callback from Zoho
