@@ -1,0 +1,202 @@
+<html>
+
+<head>
+	<title>Zoho Accounts</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700" rel="stylesheet">
+</head>
+<style>
+	body {
+		width: 100%;
+		font-family: 'Open Sans', sans-serif;
+		margin: 0px;
+	}
+
+	.container {
+		display: block;
+		width: 70%;
+		margin: auto;
+		margin-top: 120px;
+	}
+
+	.zoho_logo {
+		display: block;
+		margin: auto;
+		height: 40px;
+		max-width: 200px;
+		width: auto;
+		background: url("https://static.zohocdn.com/iam/v2/components/images/newZoho_logo.fda7a132d51cfdb4b241aaa9854707b6.svg") no-repeat transparent;
+		margin-bottom: 40px;
+		background-position: center;
+	}
+
+	.error_img {
+		display: block;
+		height: 300px;
+		margin-bottom: 40px;
+		width: 100%;
+	}
+
+	.raodblock {
+		background: url(https://static.zohocdn.com/iam/v2/components/images/roadblock.94f70c680f7cb06f480b33f958d02820.png) no-repeat transparent;
+		background-size: auto 100%;
+		background-position: center;
+	}
+
+	.heading {
+		display: block;
+		text-align: center;
+		font-size: 24px;
+		margin-bottom: 10px;
+		line-height: 34px;
+		font-weight: 600;
+	}
+
+	.discrption {
+		display: block;
+		width: 500px;
+		margin: auto;
+		text-align: center;
+		font-size: 16px;
+		margin-bottom: 10px;
+		line-height: 24px;
+		color: #444;
+	}
+
+	.refresh_btn {
+		background-color: #1389E3;
+		color: #fff;
+		padding: 12px 30px;
+		border-radius: 5px;
+		font-size: 14px;
+		cursor: pointer;
+		width: fit-content;
+		width: -moz-fit-content;
+		width: -webkit-fit-content;
+		font-weight: 600;
+		margin: auto;
+		margin-top: 30px;
+	}
+
+
+	@media only screen and (-webkit-min-device-pixel-ratio: 2),
+	only screen and (min--moz-device-pixel-ratio: 2),
+	only screen and (-o-min-device-pixel-ratio: 2/1),
+	only screen and (min-device-pixel-ratio: 2),
+	only screen and (min-resolution: 192dpi),
+	only screen and (min-resolution: 2dppx) {
+		.raodblock {
+			background: url(https://static.zohocdn.com/iam/v2/components/images/roadblock@2x.91374380df32097beed18c88a3d287f2.png) no-repeat transparent;
+			background-size: auto 100%;
+			background-position: center;
+		}
+	}
+
+	@media only screen and (max-width: 435px) {
+		.container {
+			width: 90%;
+			margin-top: 50px;
+		}
+
+		.discrption {
+			width: 100%;
+		}
+
+		.error_img {
+			display: block;
+			max-width: 340px;
+			background-size: 100% auto;
+			margin: auto;
+			margin-bottom: 40px;
+		}
+
+		.heading {
+			display: block;
+			text-align: center;
+			font-size: 20px;
+			margin-bottom: 10px;
+			line-height: 30px;
+			font-weight: 600;
+		}
+
+		.discrption {
+			display: block;
+			margin: auto;
+			text-align: center;
+			font-size: 14px;
+			margin-bottom: 10px;
+			line-height: 24px;
+			color: #444;
+		}
+	}
+</style>
+
+<body>
+	<div class="container">
+		<div class="zoho_logo"></div>
+		<div class="error_img raodblock"></div>
+		<div class="heading">An error occurred</div>
+		<div class="discrption">An error occurred while processing your request.<br> Please try again later.</div>
+			<div class="refresh_btn" onclick="location.href='/'">Go to home page</div>
+		</div>
+		<footer id="footer">
+
+
+			<style>
+				#footer {
+					width: 100%;
+					height: 20px;
+					font-size: 14px;
+					color: #727272;
+					position: absolute;
+					left: 0px;
+					right: 0px;
+					margin: 20px auto;
+					text-align: center;
+					font-size: 14px;
+					bottom: 0px;
+				}
+
+				#footer a {
+					text-decoration: none;
+					color: #727272;
+					font-size: 14px;
+				}
+
+				@media only screen and (max-width: 435px) {
+
+					#footer a,
+					#footer,
+					footer {
+						font-size: 12px !important;
+					}
+				}
+			</style>
+			<div style="padding:5px 0px;">
+				<span>
+					&copy 2023, <a href=http://www.zohocorp.com/ target=_blank >Zoho Corporation Pvt. Ltd.</a> All Rights Reserved.
+				</span>
+			</div>
+
+		</footer>
+</body>
+<script>
+	function setFooterPosition(){
+				var container = document.getElementsByClassName("container")[0];
+				var top_value = window.innerHeight-60;
+				if(container && (container.offsetHeight+container.offsetTop+30)<top_value){
+					document.getElementById("footer").style.top = top_value+"px"; // No I18N
+				}
+				else{
+					document.getElementById("footer").style.top = container && (container.offsetHeight+container.offsetTop+30)+"px"; // No I18N
+				}
+			}
+			window.addEventListener("resize",function(){
+				setFooterPosition();
+			});
+			window.addEventListener("load",function(){
+				setFooterPosition();
+			});
+</script>
+
+</html>
