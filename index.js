@@ -25,16 +25,25 @@ app.get('/oauth2callback', async (req, res) => {
   console.log(code);
   try {
     // Exchange authorization code for access token
-    const response = await axios.post('https://accounts.zoho.in/oauth/v2/token', null, {
-      params: {
-        code,
-        grant_type: 'authorization_code',
-        client_id: clientId,
-        client_secret: clientSecret,
-        redirect_uri: redirectUri,
-        scope,
-      },
-    });
+    const response = await new Promise(function (resolve, reject) {
+      axios.post('https://accounts.zoho.in/oauth/v2/token', null, {
+        params: {
+          code,
+          grant_type: 'authorization_code',
+          client_id: clientId,
+          client_secret: clientSecret,
+          redirect_uri: redirectUri,
+          scope,
+        },
+      }).then(res=>{
+        if (res) {
+          resolve(res.data.Data.TripDetailsResult)
+        } else {
+          reject("There is an Error!")
+        }
+      })
+    })
+   
 
     const { access_token } = response.data;
     res.send(`Access token: ${access_token}`);
