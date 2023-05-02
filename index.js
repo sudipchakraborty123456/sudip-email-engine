@@ -6,7 +6,7 @@ const port = 3001;
 // Define Zoho OAuth parameters
 const clientId = '1000.AAQ54HYHFI8TOZ4BHFA0U6941681HE';
 const clientSecret = '28f4a89964fcae8216bf83fd2edcb70a7cfc4e2a49';
-const redirectUri = 'https://localhost:3000/oauth2callback';
+const redirectUri = 'https://sudipmailengine.onrender.com/oauth2callback';
 const scope = 'ZohoMail.folders.READ';
 app.get('/', (req, res) => {
   res.send(`app working`);
