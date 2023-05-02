@@ -15,9 +15,10 @@ app.get('/', (req, res) => {
 app.get('/authorize',async (req, res) => {
   const authUrl =await `https://accounts.zoho.in/oauth/v2/auth?scope=${scope}&client_id=${clientId}&response_type=code&access_type=offline&redirect_uri=${redirectUri}`;
   console.log(authUrl);
-const a= await axios.get(authUrl)
-console.log(a);
-// await res.redirect(authUrl);
+// const a= await axios.get(authUrl)
+// console.log(a);
+console.log(res);
+await res.redirect(authUrl);
 });
 
 // Endpoint for handling the callback from Zoho
@@ -53,6 +54,38 @@ console.log("redirected");
   } catch (error) {
     console.error(error);
     res.status(500).send('Error getting access token');
+  }
+});
+
+
+
+
+// Add email aliases for a user in the organization
+app.put('/add-email-alias/:accountId', async (req, res) => {
+  try {
+    const { accountId } = req.params;
+    const emailAliases = req.body.emailAliases;
+
+    // Prepare request payload
+    const requestBody = {
+      mode: 'addEmailAlias',
+      emailAlias: emailAliases,
+    };
+
+    // Set request headers
+    const requestHeaders = {
+      Authorization: `Zoho-authtoken ${zohoAuthToken}`,
+    };
+
+    // Send request to Zoho API
+    const response = await axios.put(`${zohoAPIBaseUrl}/api/organization/${zohoOrganizationId}/accounts/${accountId}`, requestBody, {
+      headers: requestHeaders,
+    });
+
+    res.send(`Email aliases added successfully: ${response.data.emailAlias}`);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Error adding email aliases');
   }
 });
 
