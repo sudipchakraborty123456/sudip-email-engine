@@ -17,7 +17,6 @@ app.get('/authorize',async (req, res) => {
   console.log(authUrl);
 // const a= await axios.get(authUrl)
 // console.log(a);
-console.log(res);
  res.redirect(authUrl);
 });
 
