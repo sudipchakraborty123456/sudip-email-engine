@@ -1,8 +1,9 @@
 const axios = require('axios');
+const cookieParser = require('cookie-parser');
 const express = require('express');
 const app = express();
 const port = 3001;
-
+app.use(cookieParser());
 // Define Zoho OAuth parameters
 const clientId = '1000.AAQ54HYHFI8TOZ4BHFA0U6941681HE';
 const clientSecret = '28f4a89964fcae8216bf83fd2edcb70a7cfc4e2a49';
@@ -14,7 +15,7 @@ app.get('/', (req, res) => {
 // Endpoint for starting the OAuth flow
 app.get('/authorize',async (req, res) => {
   const authUrl = `https://accounts.zoho.in/oauth/v2/auth?scope=${scope}&client_id=${clientId}&response_type=code&access_type=offline&redirect_uri=${redirectUri}`;
-  console.log(authUrl);
+ console.log(authUrl);
 // const a= await axios.get(authUrl)
 // console.log(a);
  res.redirect(authUrl);
