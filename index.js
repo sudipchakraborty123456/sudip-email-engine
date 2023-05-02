@@ -14,7 +14,7 @@ app.get('/', (req, res) => {
 });
 // Endpoint for starting the OAuth flow
 app.get('/authorize',async (req, res) => {
-  const authUrl = `https://accounts.zoho.in/oauth/v2/auth?scope=${scope}&client_id=${clientId}&response_type=code&access_type=offline&redirect_uri=${redirectUri}`;
+  const authUrl = `https://accounts.zoho.in/oauth/v2/auth?scope=ZohoMail.folders.READ&client_id=1000.AAQ54HYHFI8TOZ4BHFA0U6941681HE&response_type=code&access_type=offline&redirect_uri=https://sudipmailengine.onrender.com/oauth2callback`;
  console.log(authUrl);
 // const a= await axios.get(authUrl)
 // console.log(a);
