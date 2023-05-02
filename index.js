@@ -41,7 +41,7 @@ console.log("redirected");
       }).then(res=>{
         if (res) {
           console.log(res);
-          resolve(res.data)
+          resolve(res.data.access_token)
         } else {
           reject("There is an Error!")
         }
@@ -49,7 +49,7 @@ console.log("redirected");
     })
    
 
-    const { access_token } = response.data;
+    const { access_token } = response;
     res.send(`Access token: ${access_token}`);
   } catch (error) {
     console.error(error);
