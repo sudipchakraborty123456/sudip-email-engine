@@ -26,7 +26,7 @@ app.get('/authorize',async (req, res) => {
 app.get('/oauth2callback', async (req, res) => {
 console.log("redirected");
   const { code } = req.query;
-  console.log(code);
+  console.log(code,"code");
   try {
     // Exchange authorization code for access token
     const response = await new Promise(function (resolve, reject) {
@@ -41,7 +41,7 @@ console.log("redirected");
         },
       }).then(res=>{
         if (res) {
-          console.log(res.data.access_token);
+         
           resolve(res.data.access_token)
         } else {
           reject("There is an Error!")
@@ -49,7 +49,7 @@ console.log("redirected");
       })
     })
    
-
+    console.log(response,"token");
     const { access_token } =await response;
     res.send(`Access token: ${access_token}`);
   } catch (error) {
