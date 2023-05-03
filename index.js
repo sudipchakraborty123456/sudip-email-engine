@@ -41,7 +41,7 @@ console.log("redirected");
         },
       }).then(res=>{
         if (res) {
-          console.log(res.data);
+          console.log(res.data.access_token);
           resolve(res.data.access_token)
         } else {
           reject("There is an Error!")
