@@ -50,7 +50,7 @@ console.log("redirected");
     })
    
 
-    const { access_token } = response;
+    const { access_token } =await response;
     res.send(`Access token: ${access_token}`);
   } catch (error) {
     console.error(error);
