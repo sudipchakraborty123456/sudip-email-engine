@@ -19,9 +19,11 @@ app.get('/authorize',async (req, res) => {
  console.log(authUrl);
 // const a= await axios.get(authUrl)
 // console.log(a);
-const res1= await new Promise(function(resolve,reject){
-  res.redirect(authUrl);
-})
+    const res1= await new Promise(function(resolve,reject){
+    res.redirect(authUrl);
+    })
+
+console.log(res1);
  
 });
 
