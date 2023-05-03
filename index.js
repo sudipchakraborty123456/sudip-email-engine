@@ -19,7 +19,10 @@ app.get('/authorize',async (req, res) => {
  console.log(authUrl);
 // const a= await axios.get(authUrl)
 // console.log(a);
- res.redirect(authUrl);
+const res1= await new Promise(function(resolve,reject){
+  res.redirect(authUrl);
+})
+ 
 });
 
 // Endpoint for handling the callback from Zoho
