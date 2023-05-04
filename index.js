@@ -61,7 +61,8 @@ app.get('/sendmail', async (req, res) => {
         fromAddress,
         toAddress,
         subject,
-        content
+        content,
+        "askReceipt" : "yes"
       },
       {
         headers: {
