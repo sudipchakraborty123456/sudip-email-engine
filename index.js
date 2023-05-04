@@ -1,100 +1,53 @@
-const axios = require('axios');
-const cookieParser = require('cookie-parser');
 const express = require('express');
+const axios = require('axios');
+const querystring = require('querystring');
+
+const CLIENT_ID = '1000.AAQ54HYHFI8TOZ4BHFA0U6941681HE';
+const CLIENT_SECRET = '28f4a89964fcae8216bf83fd2edcb70a7cfc4e2a49';
+const REDIRECT_URI = 'https://sudipmailengine.onrender.com/callback';
+const AUTHORIZATION_URL = 'https://accounts.zoho.in/oauth/v2/auth';
+const TOKEN_URL = 'https://accounts.zoho.in/oauth/v2/token';
+
 const app = express();
-const port = 3001;
-app.use(cookieParser());
-// Define Zoho OAuth parameters
-const clientId = '1000.AAQ54HYHFI8TOZ4BHFA0U6941681HE';
-const clientSecret = '28f4a89964fcae8216bf83fd2edcb70a7cfc4e2a49';
-const redirectUri = 'https://sudipmailengine.onrender.com/oauth2callback';
-const scope = 'ZohoMail.folders.READ';
-app.get('/', (req, res) => {
-  res.send(`app working`);
-});
-// Endpoint for starting the OAuth flow
-app.get('/authorize',async (req, res) => {
-  console.log('reached authorize');
-  const authUrl = `https://accounts.zoho.in/oauth/v2/auth?scope=ZohoMail.folders.READ&client_id=1000.AAQ54HYHFI8TOZ4BHFA0U6941681HE&response_type=code&access_type=offline&redirect_uri=https://sudipmailengine.onrender.com/oauth2callback`;
- console.log(authUrl);
-// const a= await axios.get(authUrl)
-// console.log(a);
-    const res1= await new Promise(function(resolve,reject){
-    res.redirect(authUrl);
-    })
 
-console.log(res1);
- 
+app.get('/authorize', (req, res) => {
+  const params = {
+    response_type: 'code',
+    client_id: CLIENT_ID,
+    redirect_uri: REDIRECT_URI,
+    scope: 'ZohoMail.folders.READ',
+  };
+  const authorizationUrl = `${AUTHORIZATION_URL}?${querystring.stringify(params)}`;
+  console.log(authorizationUrl,"authorizationUrl");
+  res.redirect(authorizationUrl);
 });
 
-// Endpoint for handling the callback from Zoho
-app.get('/oauth2callback', async (req, res) => {
-console.log("redirected");
-  const { code } = req.query;
-  console.log(code,"code");
+app.get('/callback', async (req, res) => {
+  const code = req.query.code;
+console.log(code,"code");
+  const params = {
+    grant_type: 'authorization_code',
+    client_id: CLIENT_ID,
+    client_secret: CLIENT_SECRET,
+    redirect_uri: REDIRECT_URI,
+    code: code,
+  };
+
   try {
-    // Exchange authorization code for access token
-    const response = await new Promise(function (resolve, reject) {
-      axios.post('https://accounts.zoho.in/oauth/v2/token', null, {
-        params: {
-          code,
-          grant_type: 'authorization_code',
-          client_id: clientId,
-          client_secret: clientSecret,
-          redirect_uri: redirectUri,
-          scope,
-        },
-      }).then(res=>{
-        if (res) {
-         
-          resolve(res.data.access_token)
-        } else {
-          reject("There is an Error!")
-        }
-      })
-    })
-   
-    console.log(response,"token");
-    const { access_token } =await response;
-    res.send(`Access token: ${access_token}`);
-  } catch (error) {
-    console.error(error);
-    res.status(500).send('Error getting access token');
-  }
-});
-
-
-
-
-// Add email aliases for a user in the organization
-app.put('/add-email-alias/:accountId', async (req, res) => {
-  try {
-    const { accountId } = req.params;
-    const emailAliases = req.body.emailAliases;
-
-    // Prepare request payload
-    const requestBody = {
-      mode: 'addEmailAlias',
-      emailAlias: emailAliases,
-    };
-
-    // Set request headers
-    const requestHeaders = {
-      Authorization: `Zoho-authtoken ${zohoAuthToken}`,
-    };
-
-    // Send request to Zoho API
-    const response = await axios.put(`${zohoAPIBaseUrl}/api/organization/${zohoOrganizationId}/accounts/${accountId}`, requestBody, {
-      headers: requestHeaders,
+    const response = await axios.post(TOKEN_URL, querystring.stringify(params), {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
     });
-
-    res.send(`Email aliases added successfully: ${response.data.emailAlias}`);
+    const accessToken = response.data.access_token;
+    console.log(accessToken,"accessToken");
+    res.send(`Access token: ${accessToken}`);
   } catch (error) {
     console.error(error);
-    res.status(500).send('Error adding email aliases');
+    res.send('Error occurred');
   }
 });
 
-app.listen(port, () => {
-  console.log(`App listening at http://localhost:${port}`);
+app.listen(3000, () => {
+  console.log('Server started on port 3000');
 });
