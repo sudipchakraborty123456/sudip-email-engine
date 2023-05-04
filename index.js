@@ -51,12 +51,8 @@ app.get('/callback', async (req, res) => {
   }
 });
 app.get('/sendmail', async (req, res) => {
-
-  const authToken = '1000.18a6bf18c72b91188a77a7f8582295db.d1df948796822a900a24c139602203db';
-  const fromAddress = 'susip@shanviatech.com';
-  const toAddress = 'sudipchakraborty47@gmail.com';
-  const subject = 'jshdgfusdgfuedbfgudsygfudygfuydfgu dsfgud gfusdfud ufygd uiyfa';
-  const content = 'kjdfhvk sfghiud fghidsfhg iasdgf sdgf igdi giuidfkgfgdmnfgdjf';
+  const {authToken,fromAddress,toAddress,subject,content}= req
+ 
 
   try {
     const response = await axios.post(
