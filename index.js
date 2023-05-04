@@ -52,7 +52,7 @@ app.get('/callback', async (req, res) => {
 });
 app.get('/sendmail', async (req, res) => {
 
-  const authToken = '1000.b70d2679019b7db8f60ea11e274e28a6.8091ae55297b2430f29eb6201e414c30';
+  const authToken = '1000.3123d669b4d4bd4870e150472337d5e0.2a10721efcb348603456938a3fa1f5f5';
   const fromAddress = 'susip@shanviatech.com';
   const toAddress = 'sudipchakraborty47@gmail.com';
   const subject = 'jshdgfusdgfuedbfgudsygfudygfuydfgu dsfgud gfusdfud ufygd uiyfa';
