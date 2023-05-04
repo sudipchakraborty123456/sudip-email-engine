@@ -19,7 +19,10 @@ app.get('/authorize', (req, res) => {
   };
   const authorizationUrl = `${AUTHORIZATION_URL}?${querystring.stringify(params)}`;
   console.log(authorizationUrl,"authorizationUrl");
-  res.redirect(authorizationUrl);
+  setTimeout(()=>{
+    res.redirect(authorizationUrl);
+  },10000)
+  
 });
 
 app.get('/callback', async (req, res) => {
