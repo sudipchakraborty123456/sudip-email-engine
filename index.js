@@ -50,7 +50,7 @@ app.get('/callback', async (req, res) => {
     res.send('Error occurred');
   }
 });
-app.get('sendmail', async (req, res) => {
+app.get('/sendmail', async (req, res) => {
 
   const authToken = '1000.b70d2679019b7db8f60ea11e274e28a6.8091ae55297b2430f29eb6201e414c30';
   const fromAddress = 'susip@shanviatech.com';
@@ -75,8 +75,10 @@ app.get('sendmail', async (req, res) => {
       }
     );
     console.log(response.data);
+    res.send({data:response.data})
   } catch (error) {
     console.error(error.response.data);
+    res.send({data:error.response.data})
   }
 });
 app.listen(3000, () => {
