@@ -50,7 +50,7 @@ app.get('/callback', async (req, res) => {
     res.send('Error occurred');
   }
 });
-app.get('/sendmail', async (req, res) => {
+app.post('/sendmail', async (req, res) => {
   const {authToken,fromAddress,toAddress,subject,content,accountId}= req
  
 let data = JSON.stringify({
@@ -78,9 +78,11 @@ let config = {
 axios.request(config)
 .then((response) => {
   console.log(JSON.stringify(response.data));
+  res.send({data:response.data})
 })
 .catch((error) => {
   console.log(error);
+  res.send({data:error})
 });
 
 });
