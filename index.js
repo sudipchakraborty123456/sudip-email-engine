@@ -69,7 +69,7 @@ app.get('/sendmail', async (req, res) => {
       },
       {
         headers: {
-          Authorization: `Bearer ${authToken}`,
+          Authorization: `Zoho-oauthtoken ${authToken}`,
           'Content-Type': 'application/json'
         }
       }
