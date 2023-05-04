@@ -18,16 +18,16 @@ app.get('/authorize', (req, res) => {
     scope: 'ZohoMail.folders.READ',
   };
   const authorizationUrl = `${AUTHORIZATION_URL}?${querystring.stringify(params)}`;
-  console.log(authorizationUrl,"authorizationUrl");
-  setTimeout(()=>{
+  console.log(authorizationUrl, "authorizationUrl");
+  setTimeout(() => {
     res.redirect(authorizationUrl);
-  },10000)
-  
+  }, 10000)
+
 });
 
 app.get('/callback', async (req, res) => {
   const code = req.query.code;
-console.log(code,"code");
+  console.log(code, "code");
   const params = {
     grant_type: 'authorization_code',
     client_id: CLIENT_ID,
@@ -43,14 +43,42 @@ console.log(code,"code");
       },
     });
     const accessToken = response.data.access_token;
-    console.log(accessToken,"accessToken");
+    console.log(accessToken, "accessToken");
     res.send(`Access token: ${accessToken}`);
   } catch (error) {
     console.error(error);
     res.send('Error occurred');
   }
 });
+app.get('sendmail', async (req, res) => {
 
+  const authToken = '1000.b70d2679019b7db8f60ea11e274e28a6.8091ae55297b2430f29eb6201e414c30';
+  const fromAddress = 'susip@shanviatech.com';
+  const toAddress = 'sudipchakraborty47@gmail.com';
+  const subject = 'jshdgfusdgfuedbfgudsygfudygfuydfgu dsfgud gfusdfud ufygd uiyfa';
+  const content = 'kjdfhvk sfghiud fghidsfhg iasdgf sdgf igdi giuidfkgfgdmnfgdjf';
+
+  try {
+    const response = await axios.post(
+      'https://mail.zoho.in/api/accounts/60021032356/messages',
+      {
+        fromAddress,
+        toAddress,
+        subject,
+        content
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+          'Content-Type': 'application/json'
+        }
+      }
+    );
+    console.log(response.data);
+  } catch (error) {
+    console.error(error.response.data);
+  }
+});
 app.listen(3000, () => {
   console.log('Server started on port 3000');
 });
