@@ -51,12 +51,12 @@ app.get('/callback', async (req, res) => {
   }
 });
 app.get('/sendmail', async (req, res) => {
-  const {authToken,fromAddress,toAddress,subject,content}= req
+  const {authToken,fromAddress,toAddress,subject,content,accountId}= req
  
 
   try {
     const response = await axios.post(
-      'https://mail.zoho.in/api/accounts/60021032356/messages',
+      `https://mail.zoho.in/api/accounts/${accountId}/messages`,
       {
         fromAddress,
         toAddress,
