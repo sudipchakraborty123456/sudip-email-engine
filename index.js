@@ -42,6 +42,7 @@ app.get('/callback', async (req, res) => {
         'Content-Type': 'application/x-www-form-urlencoded',
       },
     });
+    console.log(response.data);
     const accessToken = response.data.access_token;
     console.log(accessToken, "accessToken");
     res.send(`Access token: ${accessToken}`);
@@ -77,7 +78,7 @@ app.post('/sendmail', async (req, res) => {
   request(options, function (error, response) {
     if (error) throw new Error(error);
     console.log(response.body);
-    res.send({data:response.body})
+    res.send(`mail send succesfully to ${toAddress} from ${fromAddress}`)
   });
 }
 );
