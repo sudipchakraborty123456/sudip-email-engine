@@ -34,6 +34,8 @@ app.get('/callback', async (req, res) => {
     client_secret: CLIENT_SECRET,
     redirect_uri: REDIRECT_URI,
     code: code,
+    scope: "ZohoMail.messages.ALL",
+    state: "WB"
   };
 
   try {
