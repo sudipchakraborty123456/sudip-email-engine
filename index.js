@@ -15,7 +15,7 @@ app.get('/authorize', (req, res) => {
     response_type: 'code',
     client_id: CLIENT_ID,
     redirect_uri: REDIRECT_URI,
-    scope: 'ZohoMail.folders.READ',
+    scope: 'ZohoMail.organization.accounts.ALL',
   };
   const authorizationUrl = `${AUTHORIZATION_URL}?${querystring.stringify(params)}`;
   console.log(authorizationUrl, "authorizationUrl");
